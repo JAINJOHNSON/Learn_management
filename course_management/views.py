@@ -91,4 +91,21 @@ class CourseModelViewSetView(ModelViewSet):
     queryset = Course.objects.all()
     pagination_class = CustomLimitOffsetPagenation
 
+    def get_queryset(self):
+
+        qs = Course.objects.all()
+
+        query_parameter = self.request.query_params
+
+
+        if "language" in query_parameter:
+
+            language = query_parameter.get("language")
+
+            qs = qs.filter(language__iexact=language)
+
+        return qs
+    
+    
+
 
