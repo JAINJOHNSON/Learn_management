@@ -32,13 +32,15 @@ class SignUpView(APIView):
             return Response(data=serializer_instance.errors)
 
 
-class CourseCreateListView(ListCreateAPIView):
-    authentication_classes = [authentication.BasicAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+# class CourseCreateListView(ListCreateAPIView):
+#     authentication_classes = [authentication.BasicAuthentication]
+#     permission_classes = [permissions.IsAuthenticated]
 
-    queryset = Course.objects.all()
+#     queryset = Course.objects.all()
 
-    serializer_class = CourseSerializer
+#     serializer_class = CourseSerializer
+
+    #==============================
 
     # def get(self,request):
 
@@ -65,14 +67,14 @@ class CourseCreateListView(ListCreateAPIView):
     
 
 
-class CourseRetriveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+# class CourseRetriveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
 
-    queryset = Course.objects.all()
+#     queryset = Course.objects.all()
 
-    serializer_class = CourseSerializer
+#     serializer_class = CourseSerializer
 
-    authentication_classes = [authentication.BasicAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+#     authentication_classes = [authentication.BasicAuthentication]
+#     permission_classes = [permissions.IsAuthenticated]
 
 
 # =========================================================================
@@ -80,6 +82,9 @@ class CourseRetriveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
 # =========================================================================
 
 
-# from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet
 
-# class CourseModelViewSetView(ModelViewSet):
+class CourseModelViewSetView(ModelViewSet):
+    serializer_class = CourseSerializer
+    queryset = Course.objects.all()
+
