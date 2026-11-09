@@ -86,7 +86,7 @@ Authorization: Basic admin1:admin1
 #                   VIEWSET         
 
 ###
-GET   http://127.0.0.1:8000/course/course_viewset/?language=Python
+GET   http://127.0.0.1:8000/course/course_viewset/?title=data
 Accept: application/json
 Authorization: Basic admin1:admin1
 

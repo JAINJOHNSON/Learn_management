@@ -104,6 +104,14 @@ class CourseModelViewSetView(ModelViewSet):
 
             qs = qs.filter(language__iexact=language)
 
+
+        if "title" in query_parameter:
+
+            title = query_parameter.get("title")
+
+            qs = qs.filter(title__icontains=title)
+
+
         return qs
     
     
