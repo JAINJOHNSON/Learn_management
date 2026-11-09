@@ -84,7 +84,11 @@ class SignUpView(APIView):
 
 from rest_framework.viewsets import ModelViewSet
 
+from course_management.pagenation import CustomPagenation,CustomLimitOffsetPagenation
+
 class CourseModelViewSetView(ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
+    pagination_class = CustomLimitOffsetPagenation
+
 
