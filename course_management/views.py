@@ -8,12 +8,13 @@ from django.contrib.auth.models import User
 from rest_framework import authentication,permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView,ListCreateAPIView
 
 from course_management.serializers import UserSerializer,CourseSerializer
 
 from course_management.models import Course
 
+from rest_framework.pagination import PageNumberPagination
 
 class SignUpView(APIView):
 
@@ -31,29 +32,37 @@ class SignUpView(APIView):
             return Response(data=serializer_instance.errors)
 
 
-class CourseCreateListView(APIView):
+class CourseCreateListView(ListCreateAPIView):
     authentication_classes = [authentication.BasicAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self,request):
+    queryset = Course.objects.all()
 
-        courses = Course.objects.all()
-        serializer_instance = CourseSerializer(courses,many=True)
-        return Response(data=serializer_instance.data)
+    serializer_class = CourseSerializer
+
+    # def get(self,request):
+
+    #     courses = Course.objects.all()
+    #     serializer_instance = CourseSerializer(courses,many=True)
+    #     return Response(data=serializer_instance.data)
+
+ 
 
 
-    def post(self,request):
-        form_data = request.data
-        serializer_instance = CourseSerializer(data=form_data)
+    # def post(self,request):
+    #     form_data = request.data
+    #     serializer_instance = CourseSerializer(data=form_data)
 
-        if serializer_instance.is_valid():
-            cleaned_data = serializer_instance.validated_data
+    #     if serializer_instance.is_valid():
+    #         cleaned_data = serializer_instance.validated_data
 
-            serializer_instance.save()
+    #         serializer_instance.save()
 
-            return Response(data=serializer_instance.data)
-        else:
-            return Response(data=serializer_instance.errors)
+    #         return Response(data=serializer_instance.data)
+    #     else:
+    #         return Response(data=serializer_instance.errors)
+
+    
 
 
 class CourseRetriveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
@@ -64,3 +73,13 @@ class CourseRetriveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
 
     authentication_classes = [authentication.BasicAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+
+
+# =========================================================================
+#                       VeiwSet
+# =========================================================================
+
+
+# from rest_framework.viewsets import ModelViewSet
+
+# class CourseModelViewSetView(ModelViewSet):
